@@ -1,0 +1,41 @@
+plugins {
+    id 'java' // 應用 Java 插件
+    id 'org.springframework.boot' version '3.2.7' // 應用 Spring Boot 插件，版本為 3.2.7
+    id 'io.spring.dependency-management' version '1.0.5.RELEASE' // 應用 Spring 的依賴管理插件
+}
+
+group = 'com.example' // 定義項目的組名
+version = '0.0.1-SNAPSHOT' // 定義項目的版本
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17) // 設定 Java 編譯器的語言版本為 17
+    }
+}
+
+repositories {
+    mavenCentral() // 設定 Maven 中央倉庫作為依賴的來源
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter' // Spring Boot 基礎依賴
+    implementation 'org.springframework.boot:spring-boot-starter-web' // Spring Boot Web 依賴，用於創建 web 應用
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // Spring Boot JPA 依賴，用於數據庫訪問
+//    implementation 'org.springframework.boot:spring-boot-starter-security' // Spring Security 依賴，用於密碼加密等/處理身份驗證和授權
+    implementation 'org.springframework.boot:spring-boot-starter-mail' // Spring Boot 郵件依賴，用於發送電子郵件
+    implementation 'mysql:mysql-connector-java:8.0.31' // MySQL 連接器依賴，用於連接 MySQL 數據庫
+    developmentOnly 'org.springframework.boot:spring-boot-devtools' // Spring Boot 開發工具，只在開發環境中使用
+    runtimeOnly 'com.mysql:mysql-connector-j' // MySQL 連接器運行時依賴
+    testImplementation 'org.springframework.boot:spring-boot-starter-test' // Spring Boot 測試依賴
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher' // JUnit 平台運行器測試運行時依賴
+    implementation 'com.google.code.gson:gson:2.8.9' // GSON 依賴
+}
+
+tasks.named('test') {
+    useJUnitPlatform() // 設置測試任務使用 JUnit 平台
+}
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs << "-parameters" // 配置 Java 編譯器參數，保留方法參數名稱
+
+}
